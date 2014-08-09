@@ -243,12 +243,17 @@ label[for='toggle-all'] {
 	white-space: pre;
 	word-break: break-word;
 	padding: 15px 60px 15px 15px;
-	margin-left: 45px;
+	margin-left: 60px; /* made extra space for the urgent ! mark */
 	display: block;
 	line-height: 1.2;
 	-webkit-transition: color 0.4s;
 	transition: color 0.4s;
 }
+/* style for urgent label */
+#todo-list li.urgent {
+	background-color: rgba(255,144,144,0.20); 
+}
+/* ENDstyle for urgent label */
 
 #todo-list li.completed label {
 	color: #a9a9a9;
@@ -285,6 +290,42 @@ label[for='toggle-all'] {
 #todo-list li:hover .destroy {
 	display: block;
 }
+
+
+/* Urgent Button CSS*/
+
+#todo-list li .urgent {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 40px;
+	bottom: 0;
+	width: 40px;
+	height: 40px;
+	margin: auto 0;
+	font-size: 22px;
+	color: #a88a8a;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+}
+
+#todo-list li .urgent:hover {
+	text-shadow: 0 0 1px #000,
+				 0 0 10px rgba(199, 107, 107, 0.8);
+	-webkit-transform: scale(1.3);
+	-ms-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+#todo-list li .urgent:after {
+	content: '!';
+}
+
+#todo-list li:hover .urgent {
+	display: block;
+}
+/* END Urgent Button CSS */
+
 
 #todo-list li .edit {
 	display: none;

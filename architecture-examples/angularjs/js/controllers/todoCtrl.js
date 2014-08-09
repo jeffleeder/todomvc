@@ -40,12 +40,25 @@ angular.module('todomvc')
 
 			todos.push({
 				title: newTodo,
-				completed: false
+				completed: false,
+				urgent: false  
+				//initial state is false
 			});
 
 			$scope.newTodo = '';
 		};
-
+		
+		 //function to make urgent / not urgent
+		$scope.urgentTodo = function (todo) {
+			if (todo.urgent == true){  //test if todo is urgent
+				todo.urgent = false;  // set urgent todo to false
+			}
+			else { // if todo isnt true 
+				todo.urgent = true;	 // set todo to true
+			}
+		};
+		
+		
 		$scope.editTodo = function (todo) {
 			$scope.editedTodo = todo;
 			// Clone the original todo to restore it on demand.
