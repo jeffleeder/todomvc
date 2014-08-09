@@ -295,7 +295,6 @@ label[for='toggle-all'] {
 /* Urgent Button CSS*/
 
 #todo-list li .urgent {
-	display: none;
 	position: absolute;
 	top: 0;
 	left: 40px;
@@ -304,12 +303,14 @@ label[for='toggle-all'] {
 	height: 40px;
 	margin: auto 0;
 	font-size: 22px;
-	color: #a88a8a;
+	color: #ccc;
 	-webkit-transition: all 0.2s;
 	transition: all 0.2s;
 }
 
 #todo-list li .urgent:hover {
+color: #a88a8a;
+	
 	text-shadow: 0 0 1px #000,
 				 0 0 10px rgba(199, 107, 107, 0.8);
 	-webkit-transform: scale(1.3);
