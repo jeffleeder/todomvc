@@ -14,9 +14,18 @@ module.exports = function(grunt) {
             mangle: false
         },
       dist: {
-        files: {
+        files:[ {
           'min/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
-        }
+        },
+        {
+          'min/base.min.js': ['bower_components/todomvc-common/base.js']
+        },
+         {
+          'min/angular.min.js': ['bower_components/angular/angular.js']
+        },
+         {
+          'min/angular-route.min.js': ['bower_components/angular-route/angular-route.js']
+        }]
       }
     },
 
