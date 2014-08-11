@@ -1,4 +1,4 @@
-/*global angular */
+/*global angular*/
 
 /**
  * The main TodoMVC app module

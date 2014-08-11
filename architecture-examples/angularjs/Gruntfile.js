@@ -39,30 +39,27 @@ module.exports = function(grunt) {
 	  }
 	},
 
-    jshint: {
-      files: ['Gruntfile.js'],
-      options: {
-        // options here to override JSHint defaults
-        globals: {
-          jQuery: true,
-          console: true,
-          module: true,
-          document: true
-        }
-      }
-    },
     watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint']
-    }
+        options: {
+            livereload: true
+        },
+        js: {
+            files: 'js/**/*.js', 
+            tasks: ['default']
+        },
+        css: {
+	        files: 'bower_components/todomvc-common/base.css',
+	        tasks: ['css']
+        }
+        }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('css', ['cssmin']);
 
 };
