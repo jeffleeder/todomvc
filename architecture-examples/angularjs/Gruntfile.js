@@ -19,7 +19,17 @@ module.exports = function(grunt) {
         }
       }
     },
-   
+
+	cssmin: {
+	  minify: {
+	    expand: true,
+	    cwd: 'bower_components/todomvc-common/',
+	    src: ['*.css', '!*.min.css'],
+	    dest: 'min/',
+	    ext: '.min.css'
+	  }
+	},
+
     jshint: {
       files: ['Gruntfile.js'],
       options: {
@@ -42,7 +52,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
-
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 
 };
