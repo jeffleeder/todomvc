@@ -1,6 +1,28 @@
 /*global angular */
 
 /**
+ * The main TodoMVC app module
+ *
+ * @type {angular.Module}
+ */
+angular.module('todomvc', ['ngRoute'])
+	.config(function ($routeProvider) {
+		'use strict';
+
+		$routeProvider.when('/', {
+			controller: 'TodoCtrl',
+			templateUrl: 'todomvc-index.html'
+		}).when('/:status', {
+			controller: 'TodoCtrl',
+			templateUrl: 'todomvc-index.html'
+		}).otherwise({
+			redirectTo: '/'
+		});
+	});
+
+/*global angular */
+
+/**
  * The main controller for the app. The controller:
  * - retrieves and persists the model via the todoStorage service
  * - exposes the model to the template and provides event handlers
@@ -87,5 +109,69 @@ angular.module('todomvc')
 			todos.forEach(function (todo) {
 				todo.completed = !completed;
 			});
+		};
+	});
+
+/*global angular */
+
+/**
+ * Directive that executes an expression when the element it is applied to gets
+ * an `escape` keydown event.
+ */
+angular.module('todomvc')
+	.directive('todoEscape', function () {
+		'use strict';
+
+		var ESCAPE_KEY = 27;
+
+		return function (scope, elem, attrs) {
+			elem.bind('keydown', function (event) {
+				if (event.keyCode === ESCAPE_KEY) {
+					scope.$apply(attrs.todoEscape);
+				}
+			});
+		};
+	});
+
+/*global angular */
+
+/**
+ * Directive that places focus on the element it is applied to when the
+ * expression it binds to evaluates to true
+ */
+angular.module('todomvc')
+	.directive('todoFocus', function todoFocus($timeout) {
+		'use strict';
+
+		return function (scope, elem, attrs) {
+			scope.$watch(attrs.todoFocus, function (newVal) {
+				if (newVal) {
+					$timeout(function () {
+						elem[0].focus();
+					}, 0, false);
+				}
+			});
+		};
+	});
+
+/*global angular */
+
+/**
+ * Services that persists and retrieves TODOs from localStorage
+ */
+angular.module('todomvc')
+	.factory('todoStorage', function () {
+		'use strict';
+
+		var STORAGE_ID = 'todos-angularjs';
+
+		return {
+			get: function () {
+				return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+			},
+
+			put: function (todos) {
+				localStorage.setItem(STORAGE_ID, JSON.stringify(todos));
+			}
 		};
 	});

@@ -255,6 +255,14 @@ label[for='toggle-all'] {
 }
 /* ENDstyle for urgent label */
 
+#todo-list li.completed {
+	background-color: rgba(0,0,0,0.10);  
+	/* Make completed todos grey this overrides the red of an urgent todo to keep the interface clear 
+	   It however doesnt change the priority of the urgent todo, so if the user unchecks done the todo will 
+	   still be marked urgent and the todo will pin itself back to the top		
+	*/
+}
+
 #todo-list li.completed label {
 	color: #a9a9a9;
 	text-decoration: line-through;
@@ -325,6 +333,10 @@ color: #a88a8a;
 #todo-list li:hover .urgent {
 	display: block;
 }
+
+#todo-list li.completed .urgent {display: none;} 
+
+
 /* END Urgent Button CSS */
 
 
@@ -419,6 +431,37 @@ color: #a88a8a;
 #info a {
 	color: inherit;
 }
+
+
+
+/* animation css from http://jsbin.com/usaruce/3  timing modified Not using animate.css */
+.todo-item {
+  -webkit-transition: color 1s, background-color 1s;
+  -moz-transition: color 1s, background-color 1s;
+  -ms-transition: color 1s, background-color 1s;
+  transition: color 1s, background-color 1s;
+}
+.todo-item label {
+  display: block;
+}
+.ng-enter {
+  -webkit-animation: fadeInLeft 1s;
+  -moz-animation: fadeInLeft 1s;
+  -ms-animation: fadeInLeft 1s;
+  animation: fadeInLeft 1s;
+}
+.ng-leave {
+  -webkit-animation: bounceOut 1s;
+  -moz-animation: bounceOut 1s;
+  -ms-animation: bounceOut 1s;
+  animation: bounceOut 1s;
+}
+
+.todo-complete label {
+  text-decoration: line-through;
+}
+/* end animation css from http://jsbin.com/usaruce/3  */
+
 
 /*
 	Hack to remove background from Mobile Safari.
@@ -580,6 +623,8 @@ hr {
 	-webkit-transition-duration: 500ms;
 	transition-duration: 500ms;
 }
+
+
 
 @media (min-width: 899px) {
 	.learn-bar {

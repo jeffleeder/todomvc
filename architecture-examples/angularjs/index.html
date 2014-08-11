@@ -6,29 +6,29 @@
 		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
 		<style>[ng-cloak] { display: none; }</style>
 	</head>
-	<body ng-app="todomvc">
-		<ng-view />
+	<body ng-app="todomvc"> <!-- declare app having this here allows the app runs in the entire body of the document-->
+		<ng-view /> 
 
 		<script type="text/ng-template" id="todomvc-index.html">
 			<section id="todoapp">
 				<header id="header">
 					<h1>todos</h1>
-					<form id="todo-form" ng-submit="addTodo()">
-						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
+					<form id="todo-form" ng-submit="addTodo()"> <!-- submits input to addTodo Function -->
+						<input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus> <!-- attached input to variable newtodo for submitting to addTodo Function -->
 					</form>
 				</header>
-				<section id="main" ng-show="todos.length" ng-cloak>
-					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+				<section id="main" ng-show="todos.length" ng-cloak><!-- ng show is set to show the interface elements and list items if the todo.length is greater then 0 -->
+					<input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)"> <!-- on click call markall function -->
 					<label for="toggle-all">Mark all as complete</label>
 					<ul id="todo-list">
-						<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, urgent: todo.urgent, editing: todo == editedTodo}">
+							<li ng-repeat="todo in todos | orderBy:'urgent':true | orderBy:'completed':false:reverse=false | filter:statusFilter track by $index  " ng-class="{completed: todo.completed, urgent: todo.urgent, editing: todo == editedTodo}" class="list-group-item todo-item"> <!-- added orderby in the repeat to pin urgent todos to the top and push completed todos to the bottom and added a class to li if urgent , small transition animation via classes-->
 							<div class="view">
-								<input class="toggle" type="checkbox" ng-model="todo.completed">
-								<button class="urgent" ng-click="urgentTodo(todo)"></button>
-								<label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
-								<button class="destroy" ng-click="removeTodo(todo)"></button>
+								<input class="toggle" type="checkbox" ng-model="todo.completed"> <!-- complete check box -->
+								<button class="urgent" ng-click="urgentTodo(todo)"></button> <!-- click calls urgentToDo funtion -->
+								<label ng-dblclick="editTodo(todo)">{{todo.title}}</label> <!-- detect double click to edit -->
+								<button class="destroy" ng-click="removeTodo(todo)"></button> <!-- delete button -->
 							</div>
-							<form ng-submit="doneEditing(todo)">
+							<form ng-submit="doneEditing(todo)"> <!-- edit form -->
 								<input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEditing(todo)" ng-blur="doneEditing(todo)" todo-focus="todo == editedTodo">
 							</form>
 						</li>
@@ -38,12 +38,15 @@
 					<span id="todo-count"><strong>{{remainingCount}}</strong>
 						<ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
 					</span>
-					<ul id="filters">
+					<ul id="filters"><!-- filters send status to statusFilter -->
 						<li>
 							<a ng-class="{selected: status == ''} " href="#/">All</a>
 						</li>
 						<li>
 							<a ng-class="{selected: status == 'active'}" href="#/active">Active</a>
+						</li>
+						<li>
+							<a ng-class="{selected: status == 'urgent'}" href="#/urgent">Urgent</a>  <!-- added urgent filter '.selected' class is added to the a tag when href has urgent at the end this also passes urgent to the statusFilter -->
 						</li>
 						<li>
 							<a ng-class="{selected: status == 'completed'}" href="#/completed">Completed</a>
@@ -63,13 +66,18 @@
 				<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 			</footer>
 		</script>
+		
+		
 		<script src="bower_components/todomvc-common/base.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
 		<script src="bower_components/angular-route/angular-route.js"></script>
+		
+		<script src="min/AngularjsTODOTest.min.js"></script>
+		<!-- Minified with grunt above file replaces the following		
 		<script src="js/app.js"></script>
 		<script src="js/controllers/todoCtrl.js"></script>
 		<script src="js/services/todoStorage.js"></script>
 		<script src="js/directives/todoFocus.js"></script>
-		<script src="js/directives/todoEscape.js"></script>
+		<script src="js/directives/todoEscape.js"></script>-->
 	</body>
 </html>
